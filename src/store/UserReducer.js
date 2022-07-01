@@ -5,6 +5,7 @@ const defaultState = {
 const GET_ALL_USERS = "GET_ALL_USERS";
 const ADD_USER = "ADD_USER";
 const REMOVE_USER = "REMOVE_USER";
+export const FETCH_USERS = "FETCH_USERS";
 
 export const userReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -27,3 +28,5 @@ export const removeUserActionCreator = (payload) => ({
   type: REMOVE_USER,
   payload,
 });
+export const getAllUsers = (payload) => ({ type: GET_ALL_USERS, payload });
+export const fetchUsers = () => ({ type: FETCH_USERS });

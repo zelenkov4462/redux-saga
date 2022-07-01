@@ -1,10 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  asyncDecrementCountActionCreator,
+  asyncIncrementCountActionCreator,
   decrementCountActionCreator,
   incrementCountActionCreator,
 } from "./store/CountReducer";
 import {
   addUserActionCreator,
+  fetchUsers,
   removeUserActionCreator,
 } from "./store/UserReducer";
 
@@ -46,10 +49,16 @@ function App() {
         <h1>{count}</h1>
       </div>
       <div>
-        <button onClick={() => incCount()}>INC</button>
-        <button onClick={() => decCount()}>DEC</button>
+        <button onClick={() => dispatch(asyncIncrementCountActionCreator())}>
+          INC
+        </button>
+        <button onClick={() => dispatch(asyncDecrementCountActionCreator())}>
+          DEC
+        </button>
         <button onClick={() => addUser(prompt())}>Добавить клиента</button>
-        <button>Добавить всех клиентов</button>
+        <button onClick={() => dispatch(fetchUsers())}>
+          Добавить всех клиентов
+        </button>
       </div>
       <div>
         {users.map((user) => (
