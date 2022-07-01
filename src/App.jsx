@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  decrementAction,
-  incAsyncAction,
-  incrementAction,
-} from "./store/countReducer";
+  decrementCountActionCreator,
+  incrementCountActionCreator,
+} from "./store/CountReducer";
+import {
+  addUserActionCreator,
+  removeUserActionCreator,
+} from "./store/UserReducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -11,10 +14,23 @@ function App() {
   const users = useSelector((state) => state.users.users);
 
   const incCount = () => {
-    dispatch(incAsyncAction());
+    dispatch(incrementCountActionCreator());
   };
+
   const decCount = () => {
-    dispatch(decrementAction(1));
+    dispatch(decrementCountActionCreator());
+  };
+
+  const addUser = (name) => {
+    const newUser = {
+      id: Date.now(),
+      name: name,
+    };
+    dispatch(addUserActionCreator(newUser));
+  };
+
+  const removeUser = (user) => {
+    dispatch(removeUserActionCreator(user));
   };
 
   return (
@@ -32,13 +48,16 @@ function App() {
       <div>
         <button onClick={() => incCount()}>INC</button>
         <button onClick={() => decCount()}>DEC</button>
-        <button>Получить список клиентов</button>
+        <button onClick={() => addUser(prompt())}>Добавить клиента</button>
+        <button>Добавить всех клиентов</button>
       </div>
-      {!users.length ? (
-        <h1>Список клиентов пуст</h1>
-      ) : (
-        users.map((user) => <div>{user.name}</div>)
-      )}
+      <div>
+        {users.map((user) => (
+          <div onClick={() => removeUser(user.id)} key={user.id}>
+            {user.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { countReducer } from "./countReducer";
+import { countReducer } from "./CountReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { usersReducer } from "./usersReducer";
+import { userReducer } from "./UserReducer";
 import createSagaMiddleware from "redux-saga";
-import { countWatcher } from "../saga/countSaga";
+import { countWatcher } from "../saga/CouterSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   count: countReducer,
-  users: usersReducer,
+  users: userReducer,
 });
 
 export const store = createStore(
